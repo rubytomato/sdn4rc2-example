@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('ORDER CREATE')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{order.title}]]
+        <small th:text="#{order.subtitle.create}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form-horizontal" role="form" action="/order/save" th:action="@{/order/save}" th:object="${orderForm}" method="post">
+          <!-- NodeID -->
+          <div class="form-group">
+            <label for="id_ID" class="col-sm-2 control-label">
+              (hidden)NodeID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_ID" class="form-control" type="text" name="id" th:field="*{id}" />
+              <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- orderID -->
+          <div class="form-group">
+            <label for="id_orderID" class="col-sm-2 control-label">
+              (hidden)orderID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_orderID" class="form-control" type="text" name="orderID" th:field="*{orderID}" />
+              <span th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- orderDate -->
+          <div class="form-group">
+            <label for="id_orderDate" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> orderDate
+            </label>
+            <div class="col-sm-10">
+              <input id="id_orderDate" class="form-control" type="text" name="orderDate" th:field="*{orderDate}" />
+              <span th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipName -->
+          <div class="form-group">
+            <label for="id_shipName" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> shipName
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipName" class="form-control" type="text" name="shipName" th:field="*{shipName}" />
+              <span th:if="${#fields.hasErrors('shipName')}" th:errors="*{shipName}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipCountry -->
+          <div class="form-group">
+            <label for="id_shipCountry" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> shipCountry
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipCountry" class="form-control" type="text" name="shipCountry" th:field="*{shipCountry}" />
+              <span th:if="${#fields.hasErrors('shipCountry')}" th:errors="*{shipCountry}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipRegion -->
+          <div class="form-group">
+            <label for="id_shipRegion" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> shipRegion
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipRegion" class="form-control" type="text" name="shipRegion" th:field="*{shipRegion}" />
+              <span th:if="${#fields.hasErrors('shipRegion')}" th:errors="*{shipRegion}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipCity -->
+          <div class="form-group">
+            <label for="id_shipCity" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> shipCity
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipCity" class="form-control" type="text" name="shipCity" th:field="*{shipCity}" />
+              <span th:if="${#fields.hasErrors('shipCity')}" th:errors="*{picture}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipAddress -->
+          <div class="form-group">
+            <label for="id_shipAddress" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> shipAddress
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipAddress" class="form-control" type="text" name="shipAddress" th:field="*{shipAddress}" />
+              <span th:if="${#fields.hasErrors('shipAddress')}" th:errors="*{shipAddress}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipPostalCode -->
+          <div class="form-group">
+            <label for="id_shipPostalCode" class="col-sm-2 control-label">
+              shipPostalCode
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipPostalCode" class="form-control" type="text" name="shipPostalCode" th:field="*{shipPostalCode}" />
+              <span th:if="${#fields.hasErrors('shipPostalCode')}" th:errors="*{shipPostalCode}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shippedDate -->
+          <div class="form-group">
+            <label for="id_shippedDate" class="col-sm-2 control-label">
+              shippedDate
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shippedDate" class="form-control" type="text" name="shippedDate" th:field="*{shippedDate}" />
+              <span th:if="${#fields.hasErrors('shippedDate')}" th:errors="*{shippedDate}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- requiredDate -->
+          <div class="form-group">
+            <label for="id_requiredDate" class="col-sm-2 control-label">
+              requiredDate
+            </label>
+            <div class="col-sm-10">
+              <input id="id_requiredDate" class="form-control" type="text" name="requiredDate" th:field="*{requiredDate}" />
+              <span th:if="${#fields.hasErrors('requiredDate')}" th:errors="*{requiredDate}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- shipVia -->
+          <div class="form-group">
+            <label for="id_shipVia" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> shipVia
+            </label>
+            <div class="col-sm-10">
+              <input id="id_shipVia" class="form-control" type="text" name="shipVia" th:field="*{shipVia}" />
+              <span th:if="${#fields.hasErrors('shipVia')}" th:errors="*{shipVia}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- freight -->
+          <div class="form-group">
+            <label for="id_freight" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> freight
+            </label>
+            <div class="col-sm-10">
+              <input id="id_freight" class="form-control" type="text" name="freight" th:field="*{freight}" />
+              <span th:if="${#fields.hasErrors('freight')}" th:errors="*{freight}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- customerID -->
+          <div class="form-group">
+            <label for="id_customerID" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> customerID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_customerID" class="form-control" type="text" name="customerID" th:field="*{customerID}" />
+              <span th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- employeeID -->
+          <div class="form-group">
+            <label for="id_employeeID" class="col-sm-2 control-label">
+              employeeID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_employeeID" class="form-control" type="text" name="employeeID" th:field="*{employeeID}" />
+              <span th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <input class="btn btn-default" type="submit" value="save" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

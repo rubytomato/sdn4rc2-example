@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('ORDER INDEX')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{order.title}]]
+        <small th:text="#{order.subtitle.index}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <form action="/order/1" th:action="@{/order/1}" method="get">
+          <div class="input-group">
+            <input type="text" name="searchName" class="form-control" th:value="${searchName}" placeholder="Search for..." />
+            <span class="input-group-btn">
+              <input class="btn btn-default" type="submit" value="Search!" />
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-5">
+        <form action="/order/create" th:action="@{/order/create}" method="get">
+          <button class="btn btn-primary" type="submit">
+            Create
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/order/1?searchName=" th:href="@{/order/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1) + '?searchName=' + (${searchName != null}? ${searchName}: '')" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/order/1?searchName=" th:href="@{/order/} + ${i} + '?searchName=' + (${searchName != null}? ${searchName}: '')" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/order/999?searchName=" th:href="@{/order/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1) + '?searchName=' + (${searchName != null}? ${searchName}: '')"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <table class="table table-striped table-bordered" th:if="${result}">
+          <thead>
+            <tr>
+              <th>idx</th>
+              <th th:text="#{order.NodeID}">NodeID</th>
+              <th th:text="#{order.orderID}">orderID</th>
+              <th th:text="#{order.orderDate}">orderDate</th>
+              <th th:text="#{order.shipName}">shipName</th>
+              <th th:text="#{order.shipCountry}">shipCountry</th>
+              <th th:text="#{order.shipRegion}">shipRegion</th>
+              <th th:text="#{order.shipCity}">shipCity</th>
+              <th th:text="#{order.shipAddress}">shipAddress</th>
+              <th th:text="#{order.shipPostalCode}">shipPostalCode</th>
+              <th th:text="#{order.shippedDate}">shippedDate</th>
+              <th th:text="#{order.requiredDate}">requiredDate</th>
+              <th th:text="#{order.shipVia}">shipVia</th>
+              <th th:text="#{order.freight}">freight</th>
+              <th th:text="#{order.customerID}">customerID</th>
+              <th th:text="#{order.employeeID}">employeeID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="order, status : ${result}">
+              <td th:text="${status.count}">1</td>
+              <td>
+                <a href="/order/detail/1" th:href="@{/order/detail} + '/' + ${order.id}" th:text="${order.id}">id</a>
+              </td>
+              <td th:text="${order.orderID}">orderID</td>
+              <td th:text="${order.orderDate != null}? ${#dates.format(order.orderDate,'yyyy/MM/dd')} : '-'">orderDate</td>
+              <td th:text="${order.shipName}">shipName</td>
+              <td th:text="${order.shipCountry}">shipCountry</td>
+              <td th:text="${order.shipRegion}">freight</td>
+              <td th:text="${order.shipCity}">shipCity</td>
+              <td th:text="${order.shipAddress}">shipAddress</td>
+              <td th:text="${order.shipPostalCode}">shipPostalCode</td>
+              <td th:text="${order.shippedDate != null}? ${#dates.format(order.shippedDate,'yyyy/MM/dd')} : '-'">shippedDate</td>
+              <td th:text="${order.requiredDate != null}? ${#dates.format(order.requiredDate,'yyyy/MM/dd')} : '-'">requiredDate</td>
+              <td th:text="${order.shipVia}">shipVia</td>
+              <td th:text="${order.freight}">freight</td>
+              <td th:text="${order.customerID}">customerID</td>
+              <td th:text="${order.employeeID}">employeeID</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

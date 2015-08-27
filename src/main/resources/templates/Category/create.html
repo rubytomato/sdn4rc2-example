@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('CATEGORY CREATE')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{category.title}]]
+        <small th:text="#{category.subtitle.create}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <form class="form-horizontal" role="form" action="/caetgory/save" th:action="@{/category/save}" th:object="${categoryForm}" method="post">
+          <!-- NodeID -->
+          <div class="form-group">
+            <label for="id_ID" class="col-sm-2 control-label">
+              (hidden)nodeID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_ID" class="form-control" type="text" name="id" th:field="*{id}" />
+              <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- categoryID -->
+          <div class="form-group">
+            <label for="id_categoryID" class="col-sm-2 control-label">
+              (hidden)categoryID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_categoryID" class="form-control" type="text" name="categoryID" th:field="*{categoryID}" />
+              <span th:if="${#fields.hasErrors('categoryID')}" th:errors="*{categoryID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- categoryName -->
+          <div class="form-group">
+            <label for="id_categoryName" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr>categoryName
+            </label>
+            <div class="col-sm-10">
+              <input id="id_categoryName" class="form-control" type="text" name="categoryName" th:field="*{categoryName}" />
+              <span th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- description -->
+          <div class="form-group">
+            <label for="id_description" class="col-sm-2 control-label">
+              description
+            </label>
+            <div class="col-sm-10">
+              <input id="id_description" class="form-control" type="text" name="description" th:field="*{description}" />
+              <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- picture -->
+          <div class="form-group">
+            <label for="id_picture" class="col-sm-2 control-label">
+              picture
+            </label>
+            <div class="col-sm-10">
+              <input id="id_picture" class="form-control" type="text" name="picture" th:field="*{picture}" />
+              <span th:if="${#fields.hasErrors('picture')}" th:errors="*{picture}" class="help-block">error!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <input class="btn btn-default" type="submit" value="save" />
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

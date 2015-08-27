@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('CUSTOMER INDEX')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{customer.title}]]
+        <small th:text="#{customer.subtitle.index}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form action="/customer/create" th:action="@{/customer/create}" method="get">
+          <button class="btn btn-primary" type="submit">
+            Create
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/customer/1" th:href="@{/customer/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/customer/1" th:href="@{/customer/} + ${i}" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/customer/999" th:href="@{/customer/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1)"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <table class="table table-striped table-bordered" th:if="${result}">
+          <thead>
+            <tr>
+              <th>idx</th>
+              <th th:text="#{customer.NodeID}">NodeID</th>
+              <th th:text="#{customer.customerID}">customerID</th>
+              <th th:text="#{customer.contactName}">contactName</th>
+              <th th:text="#{customer.contactTitle}">contactTitle</th>
+              <th th:text="#{customer.country}">country</th>
+              <th th:text="#{customer.region}">region</th>
+              <th th:text="#{customer.city}">city</th>
+              <th th:text="#{customer.address}">address</th>
+              <th th:text="#{customer.postalCode}">postalCode</th>
+              <th th:text="#{customer.phone}">phone</th>
+              <th th:text="#{customer.fax}">fax</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="customer, status : ${result}">
+              <td th:text="${status.count}">1</td>
+              <td>
+                <a href="/customer/detail/1" th:href="@{/customer/detail} + '/' + ${customer.id}" th:text="${customer.id}">id</a>
+              </td>
+              <td th:text="${customer.customerID}">customerID</td>
+              <td th:text="${customer.contactName}">contactName</td>
+              <td th:text="${customer.contactTitle}">contactTitle</td>
+              <td th:text="${customer.country}">country</td>
+              <td th:text="${customer.region}">region</td>
+              <td th:text="${customer.city}">city</td>
+              <td th:text="${customer.address}">address</td>
+              <td th:text="${customer.postalCode}">postalCode</td>
+              <td th:text="${customer.phone}">phone</td>
+              <td th:text="${customer.fax}">fax</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

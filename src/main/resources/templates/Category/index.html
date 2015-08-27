@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('CATEGORY INDEX')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{category.title}]]
+        <small th:text="#{category.subtitle.index}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form action="/category/create" th:action="@{/category/create}" method="get">
+          <button class="btn btn-primary" type="submit">
+            Create
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/category/1" th:href="@{/category/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/category/1" th:href="@{/category/} + ${i}" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/category/999" th:href="@{/category/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1)"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <table class="table table-striped table-bordered" th:if="${result}">
+          <thead>
+            <tr>
+              <th>idx</th>
+              <th th:text="#{category.NodeID}">NodeID</th>
+              <th th:text="#{category.categoryID}">categoryID</th>
+              <th th:text="#{category.categoryName}">categoryName</th>
+              <th th:text="#{category.description}">description</th>
+              <th th:text="#{category.picture}">picture</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="category, status : ${result}">
+              <td th:text="${status.count}">1</td>
+              <td>
+                <a href="/category/detail/1" th:href="@{/category/detail} + '/' + ${category.id}" th:text="${category.id}">id</a>
+              </td>
+              <td th:text="${category.categoryID}">categoryID</td>
+              <td th:text="${category.categoryName}">categoryName</td>
+              <td th:text="${category.description}">description</td>
+              <td th:text="${#helper.substring(category.picture, 30)}">picture</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

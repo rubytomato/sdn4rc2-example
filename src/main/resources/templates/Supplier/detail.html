@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('SUPPLIER DETAIL')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{supplier.title}]]
+        <small th:text="#{supplier.subtitle.detail}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-1">
+        <form action="/supplier/edit/0" th:action="@{/supplier/edit/} + ${supplier.id}" method="get">
+          <button class="btn btn-primary" type="submit">Edit</button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form action="/supplier/delete" th:action="@{/supplier/delete}" method="post">
+          <input type="hidden" name="id" value="0" th:value="${supplier.id}"/>
+          <button class="btn btn-primary" type="submit">Delete</button>
+        </form>
+      </div>
+      <div class="col-md-10">
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-md-12">
+        <h2 th:text="#{supplier.label}">Supplier</h2>
+        <table class="table table-striped table-bordered" th:if="${supplier}" th:object="${supplier}">
+          <tr>
+            <th class="col-md-3" th:text="#{supplier.NodeID}">NodeID</th>
+            <td class="col-md-9" th:text="*{id}">id</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.supplierID}">supplierID</th>
+            <td th:text="*{supplierID}">supplierID</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.companyName}">companyName</th>
+            <td th:text="*{companyName}">companyName</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.contactName}">contactName</th>
+            <td th:text="*{contactName}">contactName</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.contactTitle}">contactTitle</th>
+            <td th:text="*{contactTitle}">contactTitle</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.homePage}">homePage</th>
+            <td th:text="*{homePage}">homePage</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.country}">country</th>
+            <td th:text="*{country}">country</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.region}">region</th>
+            <td th:text="*{region}">region</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.city}">city</th>
+            <td th:text="*{city}">city</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.address}">address</th>
+            <td th:text="*{address}">address</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.postalCode}">postalCode</th>
+            <td th:text="*{postalCode}">postalCode</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.phone}">phone</th>
+            <td th:text="*{phone}">phone</td>
+          </tr>
+          <tr>
+            <th th:text="#{supplier.fax}">fax</th>
+            <td th:text="*{fax}">fax</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 th:text="#{product.label}">Products</h3>
+        <table class="table table-striped table-bordered" th:if="${supplier.products}">
+          <caption th:text="${supplier.products.size()} + ' products'">size</caption>
+          <thead>
+            <tr>
+              <th>idx</th>
+              <th th:text="#{product.NodeID}">NodeID</th>
+              <th th:text="#{product.productID}">productID</th>
+              <th th:text="#{product.productName}">productName</th>
+              <th th:text="#{product.quantityPerUnit}">quantityPerUnit</th>
+              <th th:text="#{product.unitPrice}">unitPrice</th>
+              <th th:text="#{product.unitsInStock}">unitsInStock</th>
+              <th th:text="#{product.unitsOnOrder}">unitsOnOrder</th>
+              <th th:text="#{product.reorderLevel}">reorderLevel</th>
+              <th th:text="#{product.discontinued}">discontinued</th>
+              <th th:text="#{product.supplierID}">supplierID</th>
+              <th th:text="#{product.categoryID}">categoryID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="product, status : ${supplier.products}">
+              <td th:text="${status.count}">1</td>
+              <td>
+                <a href="/product/detail/1" th:href="@{/product/detail} + '/' + ${product.id}" th:text="${product.id}">id</a>
+              </td>
+              <td th:text="${product.productID}">productID</td>
+              <td th:text="${product.productName}">productName</td>
+              <td th:text="${product.quantityPerUnit}">quantityPerUnit</td>
+              <td th:text="${product.unitPrice}">unitPrice</td>
+              <td th:text="${product.unitsInStock}">unitsInStock</td>
+              <td th:text="${product.unitsOnOrder}">unitsOnOrder</td>
+              <td th:text="${product.reorderLevel}">reorderLevel</td>
+              <td th:text="${product.discontinued}">discontinued</td>
+              <td th:text="${product.supplierID}">supplierID</td>
+              <td th:text="${product.categoryID}">categoryID</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

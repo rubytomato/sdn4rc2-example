@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('PRODUCT CREATE')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{product.title}]]
+        <small th:text="#{product.subtitle.create}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form-horizontal" role="form" action="/product/save" th:action="@{/product/save}" th:object="${productForm}" method="post">
+          <!-- NodeID -->
+          <div class="form-group">
+            <label for="id_ID" class="col-sm-2 control-label">
+              (hidden)NodeID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_ID" class="form-control" type="text" name="id" th:field="*{id}" />
+              <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- productID -->
+          <div class="form-group">
+            <label for="id_productID" class="col-sm-2 control-label">
+              (hidden)productID
+            </label>
+            <div class="col-sm-10">
+              <input id="id_productID" class="form-control" type="text" name="productID" th:field="*{productID}" />
+              <span th:if="${#fields.hasErrors('productID')}" th:errors="*{productID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- productName -->
+          <div class="form-group">
+            <label for="id_productName" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> productName
+            </label>
+            <div class="col-sm-10">
+              <input id="id_productName" class="form-control" type="text" name="productName" th:field="*{productName}" />
+              <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- quantityPerUnit -->
+          <div class="form-group">
+            <label for="id_quantityPerUnit" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> quantityPerUnit
+            </label>
+            <div class="col-sm-10">
+              <input id="id_quantityPerUnit" class="form-control" type="text" name="quantityPerUnit" th:field="*{quantityPerUnit}" />
+              <span th:if="${#fields.hasErrors('quantityPerUnit')}" th:errors="*{quantityPerUnit}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- unitPrice -->
+          <div class="form-group">
+            <label for="id_unitPrice" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> unitPrice
+            </label>
+            <div class="col-sm-10">
+              <input id="id_unitPrice" class="form-control" type="text" name="unitPrice" th:field="*{unitPrice}" />
+              <span th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- unitsInStock -->
+          <div class="form-group">
+            <label for="id_unitsInStock" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> unitsInStock
+            </label>
+            <div class="col-sm-10">
+              <input id="id_unitsInStock" class="form-control" type="text" name="unitsInStock" th:field="*{unitsInStock}" />
+              <span th:if="${#fields.hasErrors('unitsInStock')}" th:errors="*{unitsInStock}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- unitsOnOrder -->
+          <div class="form-group">
+            <label for="id_unitsOnOrder" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> unitsOnOrder
+            </label>
+            <div class="col-sm-10">
+              <input id="id_unitsOnOrder" class="form-control" type="text" name="unitsOnOrder" th:field="*{unitsOnOrder}" />
+              <span th:if="${#fields.hasErrors('unitsOnOrder')}" th:errors="*{unitsOnOrder}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- reorderLevel -->
+          <div class="form-group">
+            <label for="id_reorderLevel" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> reorderLevel
+            </label>
+            <div class="col-sm-10">
+              <input id="id_reorderLevel" class="form-control" type="text" name="reorderLevel" th:field="*{reorderLevel}" />
+              <span th:if="${#fields.hasErrors('reorderLevel')}" th:errors="*{reorderLevel}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- discontinued -->
+          <div class="form-group">
+            <label for="id_discontinued" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> discontinued
+            </label>
+            <div class="col-sm-10 radio">
+              <label>
+                <input type="radio" name="discontinued" th:value="true" th:field="*{discontinued}" />true
+              </label>
+              <label>
+                <input type="radio" name="discontinued" th:value="false" th:field="*{discontinued}" />false
+              </label>
+              <span th:if="${#fields.hasErrors('discontinued')}" th:errors="*{discontinued}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- supplierID -->
+          <div class="form-group">
+            <label for="id_supplierID" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> supplierID
+            </label>
+            <div class="col-sm-10">
+              <select class="form-control" id="id_supplierID" name="supplierID">
+                <option th:each="item : ${selectSupplierIDs}" th:value="${item.key}" th:text="${item.value}" th:selected="${item.key} == *{supplierID}">pulldown</option>
+              </select>
+              <span th:if="${#fields.hasErrors('supplierID')}" th:errors="*{supplierID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <!-- categoryID -->
+          <div class="form-group">
+            <label for="id_categoryID" class="col-sm-2 control-label">
+              <abbr title="required">*</abbr> categoryID
+            </label>
+            <div class="col-sm-10">
+              <select class="form-control" id="id_categoryID" name="categoryID">
+                <option th:each="item : ${selectCategoryIDs}" th:value="${item.key}" th:text="${item.value}" th:selected="${item.key} == *{categoryID}">pulldown</option>
+              </select>
+              <span th:if="${#fields.hasErrors('categoryID')}" th:errors="*{categoryID}" class="help-block">error!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <input class="btn btn-default" type="submit" value="save" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

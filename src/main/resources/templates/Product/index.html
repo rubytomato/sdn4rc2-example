@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('PRODUCT INDEX')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{product.title}]]
+        <small th:text="#{product.subtitle.index}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <form action="/product/1" th:action="@{/product/1}" method="get">
+          <div class="input-group">
+            <input type="text" name="searchName" class="form-control" th:value="${searchName}" placeholder="Search for..." />
+            <span class="input-group-btn">
+              <input class="btn btn-default" type="submit" value="Search!" />
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-5">
+        <form action="/product/create" th:action="@{/product/create}" method="get">
+          <input type="hidden" name="productID" value="" />
+          <button class="btn btn-primary" type="submit">
+            Create
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/product/1?searchName=" th:href="@{/product/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1) + '?searchName='+ (${searchName != null}? ${searchName}: '')" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/product/1?searchName=" th:href="@{/product/} + ${i} + '?searchName=' + (${searchName != null}? ${searchName}: '')" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/product/999?searchName=" th:href="@{/product/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1) + '?searchName=' + (${searchName != null}? ${searchName}: '')" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <table class="table table-striped table-bordered" th:if="${result}">
+          <thead>
+            <tr>
+              <th>idx</th>
+              <th th:text="#{product.NodeID}">NodeID</th>
+              <th th:text="#{product.productID}">productID</th>
+              <th th:text="#{product.productName}">productName</th>
+              <th th:text="#{product.quantityPerUnit}">quantityPerUnit</th>
+              <th th:text="#{product.unitPrice}">unitPrice</th>
+              <th th:text="#{product.unitsInStock}">unitsInStock</th>
+              <th th:text="#{product.unitsOnOrder}">unitsOnOrder</th>
+              <th th:text="#{product.reorderLevel}">reorderLevel</th>
+              <th th:text="#{product.discontinued}">discontinued</th>
+              <th th:text="#{product.supplierID}">supplierID</th>
+              <th th:text="#{product.categoryID}">categoryID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="product, status : ${result}">
+              <td th:text="${status.count}">1</td>
+              <td>
+                <a href="/product/detail/1" th:href="@{/product/detail} + '/' + ${product.id}" th:text="${product.id}">id</a>
+              </td>
+              <td th:text="${product.productID}">productID</td>
+              <td th:text="${product.productName}">productName</td>
+              <td th:text="${product.quantityPerUnit}">quantityPerUnit</td>
+              <td th:text="${product.unitPrice}">unitPrice</td>
+              <td th:text="${product.unitsInStock}">unitsInStock</td>
+              <td th:text="${product.unitsOnOrder}">unitsOnOrder</td>
+              <td th:text="${product.reorderLevel}">reorderLevel</td>
+              <td th:text="${product.discontinued}">discontinued</td>
+              <td th:text="${product.supplierID}">supplierID</td>
+              <td th:text="${product.categoryID}">categoryID</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>
